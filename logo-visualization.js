@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const TOTAL_WARP_LENGTH = Math.ceil(numberCuts * CUT_LENGTHS[0]);
 
         // Calculate the first offset for each row in the warp direction
-        const initialOffset = 10;
+        const initialOffset = 0;
         const firstOffsetWarp = Array.from({ length: NUM_ROWS }, (_, i) => initialOffset + i * logoOffset);
 
         // Calculate the spacing between logos in the weft direction
