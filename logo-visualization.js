@@ -1,9 +1,9 @@
 // Define the dimensions
-const WEFT_WIDTH = 48;  // inches (width of the film roll)
+const WEFT_WIDTH = 48.0;  // inches (width of the film roll)
 const NUM_ROWS = 3;     // Number of rows of logos
-const SIDE_OFFSET = 5;  // inches (offset from each side in the weft direction)
+const SIDE_OFFSET = 5.0;  // inches (offset from each side in the weft direction)
 // Cut lengths will now be controlled through the UI
-let CUT_LENGTHS = [39, 36, 24];  // Initial cut lengths
+let CUT_LENGTHS = [39.0, 36.0, 24.0];  // Initial cut lengths
 
 // Define colors for the rows
 const COLORS = ['red', 'blue', 'green', 'cyan', 'magenta', 'yellow', 'orange', 'purple', 'brown', 'pink'];
@@ -32,22 +32,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Update display values when sliders change
     logoWidthSlider.addEventListener('input', () => {
-        logoWidthValue.textContent = logoWidthSlider.value;
+        logoWidthValue.textContent = parseFloat(logoWidthSlider.value).toFixed(2);
         updateVisualization();
     });
 
     logoHeightSlider.addEventListener('input', () => {
-        logoHeightValue.textContent = logoHeightSlider.value;
+        logoHeightValue.textContent = parseFloat(logoHeightSlider.value).toFixed(2);
         updateVisualization();
     });
 
     logoSpacingWarpSlider.addEventListener('input', () => {
-        logoSpacingWarpValue.textContent = logoSpacingWarpSlider.value;
+        logoSpacingWarpValue.textContent = parseFloat(logoSpacingWarpSlider.value).toFixed(2);
         updateVisualization();
     });
 
     logoOffsetSlider.addEventListener('input', () => {
-        logoOffsetValue.textContent = logoOffsetSlider.value;
+        logoOffsetValue.textContent = parseFloat(logoOffsetSlider.value).toFixed(2);
         updateVisualization();
     });
 
@@ -81,10 +81,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to update the visualization
     function updateVisualization() {
         // Get current values from sliders
-        const logoWidth = parseInt(logoWidthSlider.value);
-        const logoHeight = parseInt(logoHeightSlider.value);
-        const logoSpacingWarp = parseInt(logoSpacingWarpSlider.value);
-        const logoOffset = parseInt(logoOffsetSlider.value);
+        const logoWidth = parseFloat(logoWidthSlider.value);
+        const logoHeight = parseFloat(logoHeightSlider.value);
+        const logoSpacingWarp = parseFloat(logoSpacingWarpSlider.value);
+        const logoOffset = parseFloat(logoOffsetSlider.value);
         const numberCuts = parseInt(numberCutsSlider.value);
         
         console.log("Updating visualization with cut lengths:", CUT_LENGTHS);
@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add a title above the SVG
             const titleDiv = document.createElement('h3');
-            titleDiv.textContent = `Cut Length: ${cutLength}in`;
+            titleDiv.textContent = `Cut Length: ${cutLength.toFixed(2)}in`;
             titleDiv.style.margin = '0 0 10px 0';
             titleDiv.style.textAlign = 'center';
             titleDiv.className = 'cut-length-title';
