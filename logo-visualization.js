@@ -1,7 +1,7 @@
 // Define the dimensions
-const WEFT_WIDTH = 48.0;  // inches (width of the film roll)
-const NUM_ROWS = 3;     // Number of rows of logos
-const SIDE_OFFSET = 5.0;  // inches (offset from each side in the weft direction)
+const WEFT_WIDTH = 75.0;  // inches (width of the film roll)
+// const NUM_ROWS = 3;     // Number of rows of logos
+// const SIDE_OFFSET = 5.0;  // inches (offset from each side in the weft direction)
 // Cut lengths will now be controlled through the UI
 let CUT_LENGTHS = [39.0, 36.0, 24.0];  // Initial cut lengths
 
@@ -16,6 +16,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const logoSpacingWarpSlider = document.getElementById('logoSpacingWarp');
     const logoOffsetSlider = document.getElementById('logoOffset');
     const numberCutsSlider = document.getElementById('numberCuts');
+    const numRowsSlider = document.getElementById('numRows');
+    const sideOffsetSlider = document.getElementById('sideOffset');
+    const numRowsValue = document.getElementById('numRowsValue');
+    const sideOffsetValue = document.getElementById('sideOffsetValue');
 
     // Initialize cut length inputs
     const cutLength1Input = document.getElementById('cutLength1');
@@ -56,6 +60,17 @@ document.addEventListener('DOMContentLoaded', function() {
         updateVisualization();
     });
 
+    numRowsSlider.addEventListener('input', () => {
+        numRowsValue.textContent = numRowsSlider.value;
+        updateVisualization();
+    });
+
+    sideOffsetSlider.addEventListener('input', () => {
+        sideOffsetValue.textContent = parseFloat(sideOffsetSlider.value).toFixed(2);
+        updateVisualization();
+    });
+
+
     // Update cut lengths when button is clicked
     updateCutLengthsButton.addEventListener('click', () => {
         // Get values from inputs and convert to numbers
@@ -86,6 +101,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const logoSpacingWarp = parseFloat(logoSpacingWarpSlider.value);
         const logoOffset = parseFloat(logoOffsetSlider.value);
         const numberCuts = parseInt(numberCutsSlider.value);
+        const NUM_ROWS = parseInt(numRowsSlider.value);
+        const SIDE_OFFSET = parseFloat(sideOffsetSlider.value);
         
         console.log("Updating visualization with cut lengths:", CUT_LENGTHS);
 
@@ -138,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const yAxisLabel = document.createElement('div');
             yAxisLabel.textContent = 'Warp Direction (inches)';
             yAxisLabel.style.transform = 'rotate(-90deg)';
-            yAxisLabel.style.marginRight = '-25px'; // Reduced from -40px
+            yAxisLabel.style.marginRight = '-100px'; // Reduced from -40px
             yAxisLabel.style.fontSize = '14px';
             yAxisLabel.style.whiteSpace = 'nowrap';
             wrapperDiv.appendChild(yAxisLabel);
@@ -152,8 +169,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // Create the SVG
             const svg = d3.select(svgDiv)
                 .append('svg')
-                .attr('width', WEFT_WIDTH * 10) 
-                .attr('height', TOTAL_WARP_LENGTH * 10)
+                .attr('width', WEFT_WIDTH * 6) 
+                .attr('height', TOTAL_WARP_LENGTH * 6)
                 .attr('viewBox', `0 0 ${WEFT_WIDTH} ${TOTAL_WARP_LENGTH}`)
                 .attr('style', 'border: 1px solid #ccc;');
                 

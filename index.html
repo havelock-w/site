@@ -39,13 +39,13 @@
             gap: 15px;
             margin-bottom: 10px;
             width: 100%;
-            max-width: 1200px; /* Increased from 800px to accommodate all sliders */
+            max-width: 1600px; /* Increased from 800px to accommodate all sliders */
             overflow-x: auto; /* Add horizontal scrolling if needed */
         }
         .control-group {
             display: flex;
             flex-direction: column;
-            min-width: 150px; /* Set a minimum width */
+            min-width: 100px; /* Set a minimum width */
             flex-shrink: 0; /* Prevent shrinking */
         }
         label {
@@ -67,7 +67,7 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            gap: 20px;
+            gap: 1px;
             overflow-x: auto;
             width: 100%;
             padding: 0 20px;
@@ -93,7 +93,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
         }
         .cut-length-input {
@@ -127,7 +127,7 @@
                 <div class="control-group">
                     <label for="logoWidth">Logo Width (inches):</label>
                     <div class="slider-container">
-                        <input type="range" id="logoWidth" class="slider" min="1" max="20" value="14" step=".25">
+                        <input type="range" id="logoWidth" class="slider" min="1" max="24" value="14" step=".25">
                         <span id="logoWidthValue" class="value-display">14</span>
                     </div>
                 </div>
@@ -135,7 +135,7 @@
                 <div class="control-group">
                     <label for="logoHeight">Logo Height (inches):</label>
                     <div class="slider-container">
-                        <input type="range" id="logoHeight" class="slider" min="1" max="20" value="9.25" step=".25">
+                        <input type="range" id="logoHeight" class="slider" min="1" max="24" value="9.25" step=".25">
                         <span id="logoHeightValue" class="value-display">9.25</span>
                     </div>
                 </div>
@@ -143,7 +143,7 @@
                 <div class="control-group">
                     <label for="logoSpacingWarp">Logo Spacing Warp (inches):</label>
                     <div class="slider-container">
-                        <input type="range" id="logoSpacingWarp" class="slider" min="1" max="20" value="10.25" step=".25">
+                        <input type="range" id="logoSpacingWarp" class="slider" min="1" max="30" value="10.25" step=".25">
                         <span id="logoSpacingWarpValue" class="value-display">10.25</span>
                     </div>
                 </div>
@@ -151,7 +151,7 @@
                 <div class="control-group">
                     <label for="logoOffset">Logo Offset (inches):</label>
                     <div class="slider-container">
-                        <input type="range" id="logoOffset" class="slider" min="0" max="20" value="9.75" step=".25">
+                        <input type="range" id="logoOffset" class="slider" min="0" max="30" value="9.75" step=".25">
                         <span id="logoOffsetValue" class="value-display">9</span>
                     </div>
                 </div>
@@ -163,6 +163,22 @@
                         <span id="numberCutsValue" class="value-display">10</span>
                     </div>
                 </div>
+
+                <div class="control-group">
+                    <label for="numRows">Number of Rows:</label>
+                    <div class="slider-container">
+                        <input type="range" id="numRows" class="slider" min="1" max="10" value="3" step="1">
+                        <span id="numRowsValue" class="value-display">3</span>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="sideOffset">Side Offset (inches):</label>
+                    <div class="slider-container">
+                        <input type="range" id="sideOffset" class="slider" min="0" max="24" value="18" step="0.25">
+                        <span id="sideOffsetValue" class="value-display">18</span>
+                    </div>
+                </div>                
             </div>
             
             <div class="cut-lengths-container">
