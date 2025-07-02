@@ -13,11 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize sliders
     const logoWidthSlider = document.getElementById('logoWidth');
     const logoHeightSlider = document.getElementById('logoHeight');
-    const logoSpacingWarpSlider = document.getElementById('logoSpacingWarp');
-    const logoOffsetSlider = document.getElementById('logoOffset');
     const numberCutsSlider = document.getElementById('numberCuts');
     const numRowsSlider = document.getElementById('numRows');
     const sideOffsetSlider = document.getElementById('sideOffset');
+    const bufferSlider = document.getElementById('buffer');
+    const multipleSlider = document.getElementById('multiple');
     const numRowsValue = document.getElementById('numRowsValue');
     const sideOffsetValue = document.getElementById('sideOffsetValue');
 
@@ -29,9 +29,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize display values
     const logoWidthValue = document.getElementById('logoWidthValue');
     const logoHeightValue = document.getElementById('logoHeightValue');
-    const logoSpacingWarpValue = document.getElementById('logoSpacingWarpValue');
-    const logoOffsetValue = document.getElementById('logoOffsetValue');
     const numberCutsValue = document.getElementById('numberCutsValue');
+    const bufferValue = document.getElementById('bufferValue');
+    const multipleValue = document.getElementById('multipleValue');
 
     // Update display values when sliders change
     logoWidthSlider.addEventListener('input', () => {
@@ -41,16 +41,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     logoHeightSlider.addEventListener('input', () => {
         logoHeightValue.textContent = parseFloat(logoHeightSlider.value).toFixed(2);
-        updateVisualization();
-    });
-
-    logoSpacingWarpSlider.addEventListener('input', () => {
-        logoSpacingWarpValue.textContent = parseFloat(logoSpacingWarpSlider.value).toFixed(2);
-        updateVisualization();
-    });
-
-    logoOffsetSlider.addEventListener('input', () => {
-        logoOffsetValue.textContent = parseFloat(logoOffsetSlider.value).toFixed(2);
         updateVisualization();
     });
 
@@ -66,6 +56,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     sideOffsetSlider.addEventListener('input', () => {
         sideOffsetValue.textContent = parseFloat(sideOffsetSlider.value).toFixed(2);
+        updateVisualization();
+    });
+
+    bufferSlider.addEventListener('input', () => {
+        bufferValue.textContent = parseFloat(bufferSlider.value).toFixed(2);
+        updateVisualization();
+    });
+
+    multipleSlider.addEventListener('input', () => {
+        multipleValue.textContent = multipleSlider.value;
         updateVisualization();
     });
 
@@ -94,12 +94,19 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get current values from sliders
         const logoWidth = parseFloat(logoWidthSlider.value);
         const logoHeight = parseFloat(logoHeightSlider.value);
-        const logoSpacingWarp = parseFloat(logoSpacingWarpSlider.value);
-        const logoOffset = parseFloat(logoOffsetSlider.value);
         const numberCuts = parseInt(numberCutsSlider.value);
         const NUM_ROWS = parseInt(numRowsSlider.value);
         const SIDE_OFFSET = parseFloat(sideOffsetSlider.value);
+        const buffer = parseFloat(bufferSlider.value);
+        const multiple = parseInt(multipleSlider.value);
         
+        // Calculate logoOffset and logoSpacingWarp dynamically
+   
+        const logoSpacingWarp = CUT_LENGTHS[0] / multiple - logoHeight;
+        // const logoOffset = CUT_LENGTHS[0] - buffer - multiple * (logoHeight + logoSpacingWarp);
+        // const logoOffset = logoHeight -buffer;
+        const logoOffset = CUT_LENGTHS[0] - buffer - multiple * (logoHeight )- logoSpacingWarp;
+
         console.log("Updating visualization with cut lengths:", CUT_LENGTHS);
 
         // Clear previous visualization
@@ -134,7 +141,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Add a title above the SVG
             const titleDiv = document.createElement('h3');
-            titleDiv.textContent = `Cut Length: ${cutLength.toFixed(2)}in`;
+            titleDiv.textContent = `Cut Length: ${cutLength.toFixed(1)}in`;
             titleDiv.style.margin = '0 0 10px 0';
             titleDiv.style.textAlign = 'center';
             titleDiv.className = 'cut-length-title';
@@ -241,8 +248,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     .attr('x', WEFT_WIDTH - 2)
                     .attr('y', cutPosition + 2.5)  // Increased the offset from +1 to +2.5
                     .attr('text-anchor', 'end')
-                    .attr('font-size', '1.5px')
-                    .attr('font-weight', 'bold')
+                    .attr('font-size', '2.5px')
+                    .attr('font-weight', 'italic')
                     .text(`Cut ${i + 1}`);
             }
         });
