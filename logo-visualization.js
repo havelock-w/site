@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const cutLength1Input = document.getElementById('cutLength1');
     const cutLength2Input = document.getElementById('cutLength2');
     const cutLength3Input = document.getElementById('cutLength3');
-    const updateCutLengthsButton = document.getElementById('updateCutLengths');
 
     // Initialize display values
     const logoWidthValue = document.getElementById('logoWidthValue');
@@ -70,28 +69,25 @@ document.addEventListener('DOMContentLoaded', function() {
         updateVisualization();
     });
 
-
-    // Update cut lengths when button is clicked
-    updateCutLengthsButton.addEventListener('click', () => {
-        // Get values from inputs and convert to numbers
+    function handleCutLengthChange() {
         const length1 = parseFloat(cutLength1Input.value);
         const length2 = parseFloat(cutLength2Input.value);
         const length3 = parseFloat(cutLength3Input.value);
-        
-        // Validate inputs
-        if (isNaN(length1) || isNaN(length2) || isNaN(length3) || 
-            length1 <= 0 || length2 <= 0 || length3 <= 0) {
-            alert("Please enter valid positive numbers for all cut lengths.");
+
+        // Only update if all values are valid positive numbers.
+        // This prevents errors and alerts while the user is typing.
+        if (isNaN(length1) || isNaN(length2) || isNaN(length3) || length1 <= 0 || length2 <= 0 || length3 <= 0) {
             return;
         }
-        
-        // Update the cut lengths array
+
         CUT_LENGTHS = [length1, length2, length3];
-        console.log("Cut lengths updated to:", CUT_LENGTHS);
-        
-        // Update the visualization
         updateVisualization();
-    });
+    }
+
+    // Add event listeners to update visualization automatically on input change
+    cutLength1Input.addEventListener('input', handleCutLengthChange);
+    cutLength2Input.addEventListener('input', handleCutLengthChange);
+    cutLength3Input.addEventListener('input', handleCutLengthChange);
 
     // Function to update the visualization
     function updateVisualization() {
