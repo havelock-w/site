@@ -37,8 +37,8 @@
             flex-wrap: nowrap; /* Changed from wrap to nowrap */
             justify-content: center;
             gap: 15px;
-            margin-bottom: 10px;
             width: 100%;
+            margin: 0 auto 10px; /* Center the container horizontally */
             max-width: 1600px; /* Increased from 800px to accommodate all sliders */
             overflow-x: auto; /* Add horizontal scrolling if needed */
         }
@@ -127,8 +127,8 @@
                 <div class="control-group">
                     <label for="logoWidth">Logo Width (inches):</label>
                     <div class="slider-container">
-                        <input type="range" id="logoWidth" class="slider" min="1" max="24" value="14" step=".25">
-                        <span id="logoWidthValue" class="value-display">14</span>
+                        <input type="range" id="logoWidth" class="slider" min="1" max="24" value="16" step=".25">
+                        <span id="logoWidthValue" class="value-display">16</span>
                     </div>
                 </div>
                 
@@ -141,7 +141,7 @@
                 </div>
                 
                 <div class="control-group">
-                    <label for="buffer">Buffer (inches):</label>
+                    <label for="buffer">End Margin (inches):</label>
                     <div class="slider-container">
                         <input type="range" id="buffer" class="slider" min="0" max="1" value=".5" step="0.25">
                         <span id="bufferValue" class="value-display">0.5</span>
@@ -149,21 +149,13 @@
                 </div>
 
                 <div class="control-group">
-                    <label for="multiple">Multiple:</label>
+                    <label for="multiple">Labels per Row:</label>
                     <div class="slider-container">
                         <input type="range" id="multiple" class="slider" min="1" max="3" value="2" step="1">
                         <span id="multipleValue" class="value-display">2</span>
                     </div>
                 </div>
                 
-                <div class="control-group">
-                    <label for="numberCuts">Number of Cuts:</label>
-                    <div class="slider-container">
-                        <input type="range" id="numberCuts" class="slider" min="1" max="100" value="10" step="1">
-                        <span id="numberCutsValue" class="value-display">10</span>
-                    </div>
-                </div>
-
                 <div class="control-group">
                     <label for="numRows">Number of Rows:</label>
                     <div class="slider-container">

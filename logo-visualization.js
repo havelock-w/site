@@ -1,19 +1,19 @@
 // Define the dimensions
 const WEFT_WIDTH = 75.0;  // inches (width of the film roll)
-// const NUM_ROWS = 3;     // Number of rows of logos
+const NUMBER_CUTS = 100;   // The number of cuts to visualize
+// const NUM_ROWS = 3;     // Number of rows of logos - now controlled by slider
 // const SIDE_OFFSET = 5.0;  // inches (offset from each side in the weft direction)
 // Cut lengths will now be controlled through the UI
 let CUT_LENGTHS = [39.0, 36.0, 24.0];  // Initial cut lengths
 
 // Define colors for the rows
-const COLORS = ['red', 'blue', 'green', 'cyan', 'magenta', 'yellow', 'orange', 'purple', 'brown', 'pink'];
+const COLORS = ['darkblue', 'goldenrod','red', 'blue', 'green', 'cyan', 'magenta', 'yellow', 'orange', 'purple', 'brown', 'pink'];
 
 // Wait for the DOM to be fully loaded before accessing elements
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize sliders
     const logoWidthSlider = document.getElementById('logoWidth');
     const logoHeightSlider = document.getElementById('logoHeight');
-    const numberCutsSlider = document.getElementById('numberCuts');
     const numRowsSlider = document.getElementById('numRows');
     const sideOffsetSlider = document.getElementById('sideOffset');
     const bufferSlider = document.getElementById('buffer');
@@ -29,7 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize display values
     const logoWidthValue = document.getElementById('logoWidthValue');
     const logoHeightValue = document.getElementById('logoHeightValue');
-    const numberCutsValue = document.getElementById('numberCutsValue');
     const bufferValue = document.getElementById('bufferValue');
     const multipleValue = document.getElementById('multipleValue');
 
@@ -41,11 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     logoHeightSlider.addEventListener('input', () => {
         logoHeightValue.textContent = parseFloat(logoHeightSlider.value).toFixed(2);
-        updateVisualization();
-    });
-
-    numberCutsSlider.addEventListener('input', () => {
-        numberCutsValue.textContent = numberCutsSlider.value;
         updateVisualization();
     });
 
@@ -94,7 +88,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Get current values from sliders
         const logoWidth = parseFloat(logoWidthSlider.value);
         const logoHeight = parseFloat(logoHeightSlider.value);
-        const numberCuts = parseInt(numberCutsSlider.value);
         const NUM_ROWS = parseInt(numRowsSlider.value);
         const SIDE_OFFSET = parseFloat(sideOffsetSlider.value);
         const buffer = parseFloat(bufferSlider.value);
@@ -114,7 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
         container.innerHTML = '';
 
         // Calculate the total warp length
-        const TOTAL_WARP_LENGTH = Math.ceil(numberCuts * CUT_LENGTHS[0]);
+        const TOTAL_WARP_LENGTH = Math.ceil(NUMBER_CUTS * CUT_LENGTHS[0]);
 
         // Calculate the first offset for each row in the warp direction
         const initialOffset = 0;
@@ -212,6 +205,30 @@ document.addEventListener('DOMContentLoaded', function() {
                 .attr('stroke', '#eee')
                 .attr('stroke-width', '0.1');
 
+            // Add vertical guide lines for the 24OC and 16OC visualizations
+            if (index === 1 || index === 2) {
+                const guideLines = [13.5, 61.5];
+                guideLines.forEach(xPos => {
+                    // Draw the line
+                    svg.append('line')
+                        .attr('x1', xPos)
+                        .attr('y1', 0)
+                        .attr('x2', xPos)
+                        .attr('y2', TOTAL_WARP_LENGTH)
+                        .attr('stroke', 'purple')
+                        .attr('stroke-width', '0.2')
+                        .attr('stroke-dasharray', '1,1');
+
+                    // Add the label
+                    svg.append('text')
+                        .attr('transform', `translate(${xPos - 0.5}, 15) rotate(-90)`)
+                        .attr('font-size', '2.5px')
+                        .attr('font-weight', 'italic')
+                        .attr('fill', 'purple')
+                        .text('Batt End');
+                });
+            }
+
             // Plot logos for each row, repeating in the warp direction
             for (let warpPosition = 0; warpPosition < TOTAL_WARP_LENGTH; warpPosition += logoSpacingWarp + logoHeight) {
                 for (let row = 0; row < NUM_ROWS; row++) {
@@ -230,7 +247,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Add cut lines
-            for (let i = 0; i < numberCuts; i++) {
+            for (let i = 0; i < NUMBER_CUTS; i++) {
                 const cutPosition = i * cutLength;
                 
                 // Add a horizontal line to represent the cut
